@@ -1,5 +1,5 @@
 {% set name = "fastTSNE" %}
-{% set version = "0.2.13" %}
+{% set version = "0.2.16" %}
 
 package:
   name: "{{ name|lower }}"
@@ -7,16 +7,17 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: c602acf5e61f80bdda1bdfe91838ec89d7fdbdbb072e54c0d8da31c35fc964a0
+  sha256: a8aa0156178982b833d09a4838d00c16ed933146a433515d54c1fa03f78a6af1
 
 build:
-  number: 1
+  number: 0
   script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv"
   skip: True  # [py<35]
 
 requirements:
   build:
     - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
   host:
     - numpy
     - pip
