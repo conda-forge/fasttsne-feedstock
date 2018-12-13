@@ -1,0 +1,37 @@
+blas_impl:
+  # mkl-devel packages are available, and conda-forge could enable them if they'd like
+  - mkl                        # [x86 or x86_64]
+#  - openblas
+# This differs from target_platform in that it determines what subdir the compiler
+#    will target, not what subdir the compiler package will be itself.
+#    For example, we need a win-64 vs2008_win-32 package, so that we compile win-32
+#    code on win-64 miniconda.
+cross_compiler_target_platform:  # [win]
+  - win-64                     # [win]
+c_compiler:
+  - toolchain_c                # [linux or osx]
+  # new compilers
+  - gcc                        # [linux                               and (environ.get('CF_COMPILER_STACK') == 'comp7')]
+  - clang                      # [osx                                 and (environ.get('CF_COMPILER_STACK') == 'comp7')]
+
+  - gcc                        # [ppc64le]
+
+#  - vs2008                     # [win]
+  - vs2015                     # [win]
+  - vs2015                     # [win and (environ.get('CF_MAX_PY_VER', '') >= '37')]
+cxx_compiler:
+  - toolchain_cxx              # [linux or osx]
+  # new compilers
+  - gxx                        # [linux                               and (environ.get('CF_COMPILER_STACK') == 'comp7')]
+  - clangxx                    # [osx                                 and (environ.get('CF_COMPILER_STACK') == 'comp7')]
+
+  - gxx                        # [ppc64le]
+
+#  - vs2008                     # [win]
+  - vs2015                     # [win]
+  - vs2015                     # [win and (environ.get('CF_MAX_PY_VER', '') >= '37')]
+
+# dual build configuration
+channel_sources:
+  - conda-forge,defaults
+  - conda-forge/label/gcc7,defaults    # [(linux or osx)     and (environ.get('CF_COMPILER_STACK') == 'comp7')]
